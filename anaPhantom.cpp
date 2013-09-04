@@ -63,7 +63,7 @@ double deltaPhi (double phi1, double phi2)
 
 int main (int argc, char **argv) {
     
-    TFile file("out.root","RECREATE");
+    TFile file("plotting/out.root","RECREATE");
     TTree* tree = new TTree("tree","tree");
     
     float mWW, mWLep, mWHad, costheta1, costheta2, costhetastar, phi, phi1;
@@ -95,7 +95,7 @@ int main (int argc, char **argv) {
     int NSignal = 0;
     int NTotal = 0;
     
-    std::ifstream ifsbkg (argv[2]) ;
+    std::ifstream ifsbkg (argv[1]) ;
     // Create the Reader object
     LHEF::Reader bkgReader (ifsbkg) ;
     
