@@ -1,0 +1,43 @@
+# Phantom cross-sections:
+
+== EWK6 == 
+gen_126_scale1 = 7.607e-02 pb
+gen_noH = 7.299e-02 pb
+
+== EWK4QCD2 ==
+gen_126_scale1 = 1.358e+00 pb
+gen_noH = 1.358e+00 pb
+
+
+
+
+
+
+-----------------------------------
+Raw
+-----------------------------------
+
+gen_126_scale1: 
+4jmu-v
+ total cross section=  7.61122509672166464E-002  +/-  5.38165334095260634E-005
+4jmu+v
+ total cross section=  7.60192136274709523E-002  +/-  5.37512714309432810E-005
+
+gen_126_scale1_qcd:
+4jmu+v
+ total cross section=   1.3575083271600363       +/-  9.69581465532575338E-004
+4jmu-v
+ total cross section=   1.3576529676280722       +/-  9.69698296943497418E-004
+
+
+gen_noH:
+4jmu-v
+ total cross section=  7.29639929316601293E-002  +/-  5.15897659500035946E-005
+4jmu+v
+ total cross section=  7.30147837604157302E-002  +/-  5.16244182312534819E-005
+
+gen_noH_qcd: 
+4jmu-v
+ total cross section=   1.3579639231084100       +/-  9.60203405770583009E-004
+4jmu+v
+ total cross section=   1.3573420562740526       +/-  9.59723349989976670E-004
