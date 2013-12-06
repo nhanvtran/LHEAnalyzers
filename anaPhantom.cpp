@@ -24,8 +24,7 @@
  export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH
  export DYLD_LIBRARY_PATH=$ROOTSYS/lib:$DYLD_LIBRARY_PATH 
  
- c++ -o analysis01 `root-config --glibs --cflags` \
- -lm hFactory.cc hChain.cc h2Factory.cc h2Chain.cc analysis01.cpp
+ c++ -o analysis01 `root-config --glibs --cflags` -lm hFactory.cc hChain.cc h2Factory.cc h2Chain.cc analysis01.cpp
  
  TO RUN:     
  
@@ -63,12 +62,12 @@ double deltaPhi (double phi1, double phi2)
 
 int main (int argc, char **argv) {
     
-    TFile file("plotting/out.root","RECREATE");
+    TFile file(argv[2],"RECREATE");
     TTree* tree = new TTree("tree","tree");
     
     float mWW, mWLep, mWHad, costheta1, costheta2, costhetastar, phi, phi1;
     float dEtajj, dPhijj, mjj;
-    int isSignal;
+    int isSignal,isMuMinus;
     
     tree->Branch("mWW",&mWW,"mWW/F");
     tree->Branch("mWLep",&mWLep,"mWLep/F");
@@ -83,7 +82,7 @@ int main (int argc, char **argv) {
     tree->Branch("mjj",&mjj,"mjj/F");
     
     tree->Branch("isSignal",&isSignal,"isSignal/I");
-
+    tree->Branch("isMuMinus",&isMuMinus,"isMuMinus/I");
     
     //PG loop over bkg
     //PG -------------
@@ -102,7 +101,8 @@ int main (int argc, char **argv) {
     //PG loop over BKG
     while ( bkgReader.readEvent () ) {
         ++BKGnumber;
-        if (BKGnumber % 1000 == 0) std::cout << "BKG event " << BKGnumber << "\n" ;
+        if (BKGnumber % 100000 == 0) std::cout << "BKG event " << BKGnumber << "\n" ;
+        //if (BKGnumber > 500000) break;
         
         std::vector<int> leptons ;      
         std::vector<int> finalQuarks ;      
@@ -167,15 +167,23 @@ int main (int argc, char **argv) {
         int tmpfill1 = 0;
         int signalFlag = 0;
         int signalWCtr = 0;
+        isMuMinus = 0;
         
         if (leptons.size() == 2){
             if (bkgReader.hepeup.IDUP.at(leptons.at(0)) > 0){
                 i_olep_part = leptons.at(0);
-                i_olep_anti = leptons.at(1);                
+                i_olep_anti = leptons.at(1);
+                if (bkgReader.hepeup.IDUP.at(leptons.at(0)) == 11 ||   //PG electron
+                    bkgReader.hepeup.IDUP.at(leptons.at(0)) == 13 ||   //PG muon
+                    bkgReader.hepeup.IDUP.at(leptons.at(0)) == 15) isMuMinus = 1;           
             }
             else{
                 i_olep_part = leptons.at(1);
-                i_olep_anti = leptons.at(0);                                
+                i_olep_anti = leptons.at(0);    
+                if (bkgReader.hepeup.IDUP.at(leptons.at(1)) == 11 ||   //PG electron
+                    bkgReader.hepeup.IDUP.at(leptons.at(1)) == 13 ||   //PG muon
+                    bkgReader.hepeup.IDUP.at(leptons.at(1)) == 15) isMuMinus = 1;           
+                            
             }
         }
         else{
@@ -235,6 +243,14 @@ int main (int argc, char **argv) {
                 }
             }
         }
+        
+        // quarks based on particle-antiparticle
+        if (bkgReader.hepeup.IDUP.at(i_wqrk_1) < 0){
+            int tmpint = i_wqrk_1;
+            i_wqrk_1 = i_wqrk_2;
+            i_wqrk_2 = tmpint;
+        }
+        
         // assign the other quarks
         std::vector<int> finalQuarksNotW;
         for (unsigned int a = 0; a < finalQuarks.size(); ++a ){
@@ -248,6 +264,7 @@ int main (int argc, char **argv) {
         }
 
 //        std::cout << "signalFlag = " << signalFlag << std::endl;
+//        std::cout << "isMuMinus = " << isMuMinus << std::endl;        
 //        std::cout << "lep1 = " << bkgReader.hepeup.IDUP.at(i_olep_part) << std::endl;
 //        std::cout << "lep2 = " << bkgReader.hepeup.IDUP.at(i_olep_anti) << std::endl;        
 //        std::cout << "qrk1 = " << bkgReader.hepeup.IDUP.at(i_wqrk_1) << std::endl;
