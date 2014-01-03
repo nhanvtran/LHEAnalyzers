@@ -57,20 +57,16 @@ def makeCanvas(hists, names, canname, isLog = False):
 if __name__ == '__main__':
 
     prefix = "/uscms_data/d2/ntran/physics/WWScattering/LHEAnalyzers/trees/";
-    ## polarization samples from Patricia - v2
-#    filenames = [prefix+"madgraph_TOT_WPlepWMhad.root",prefix+"madgraph_TT_WPlepWMhad.root",prefix+"madgraph_LT_WPlepWMhad.root",prefix+"madgraph_LL_WPlepWMhad.root"];
-#    names = ["TOT","TT","LT","LL"];
-##    crossSections = [0.909e0,0.235e-1,0.1717e+1,0.177e0];
-#    crossSections = [0.0394*1000,0.235e-1*1000,0.0139*1000,0.0022*1000];
 
     ## polarization samples from Patricia - v3
-#    filenames = [prefix+"madgraph-v3_TOT_wplepwmhad.root",prefix+"madgraph_TT_WPlepWMhad.root",prefix+"madgraph-v3_LT_wplepwmhad.root",prefix+"madgraph-v3_LL_wplepwmhad.root"];
-#    names = ["TOT","TT","LT","LL"];
-#    crossSections = [0.0394*1000,0.235e-1*1000,0.0139*1000,0.0022*1000];
-    ## phantom samples from Pietro
-    filenames = [prefix+"phantom_EWK6_noh.root",prefix+"phantom_EWK6_h126.root"];
-    names = ["no higgs","w/ Higgs"];
-    crossSections = [7.299e-02*2*1000, 7.607e-02*2*1000];    
+    filenames = [prefix+"madgraph-v3_TOT_wplepwmhad.root",prefix+"madgraph_TT_WPlepWMhad.root",prefix+"madgraph-v3_LT_wplepwmhad.root",prefix+"madgraph-v3_LL_wplepwmhad.root"];
+    names = ["TOT","TT","LT","LL"];
+    crossSections = [0.0394*1000,0.235e-1*1000,0.0139*1000,0.0022*1000];
+
+#    ## phantom samples from Pietro
+#    filenames = [prefix+"phantom_EWK6_noh.root",prefix+"phantom_EWK6_h126.root"];
+#    names = ["no higgs","w/ Higgs"];
+#    crossSections = [7.299e-02*2*1000, 7.607e-02*2*1000];    
     
     colors = [1,2,4,6];
     #nEvents = [1000000.]*len(filenames);
